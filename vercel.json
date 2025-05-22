@@ -1,9 +1,20 @@
 {
-  "buildCommand": "next build",
-  "outputDirectory": ".next",
-  "framework": "nextjs",
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
+  ],
   "env": {
     "NEXT_TELEMETRY_DISABLED": "1",
     "NEXT_OTEL_VERBOSE": "0"
-  }
+  },
+  "regions": ["iad1"]
 }

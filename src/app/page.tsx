@@ -1,16 +1,27 @@
-// src/app/page.tsx
-import MainAppLayout from './(main)/layout';
-import MainPage from './(main)/page';
+'use client';
 
-/**
- * This is the root page of the application.
- * It now explicitly renders the MainAppLayout and MainPage content,
- * ensuring that the primary application interface is displayed for the "/" path.
- */
-export default function Home() {
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
+export default function HomePage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Only run the redirect on the client side
+    if (typeof window !== 'undefined') {
+      router.replace('/warehouses');
+    }
+  }, [router]);
+
   return (
-    <MainAppLayout>
-      <MainPage />
-    </MainAppLayout>
+    <div className="flex h-full w-full items-center justify-center">
+      <p>Redirecting to warehouses...</p>
+    </div>
   );
 }
+
+
+
+
+
+

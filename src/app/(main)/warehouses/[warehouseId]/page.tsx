@@ -11,7 +11,7 @@ import { format } from 'date-fns';
 import ReactDOM from 'react-dom/client';
 import { arSA } from 'date-fns/locale';
 import { doc, getDoc, collection, addDoc, updateDoc, arrayUnion, serverTimestamp, query, where, getDocs, Timestamp } from 'firebase/firestore';
-
+import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/table";
 
 import { PageHeader } from '@/components/PageHeader';
 import { Button } from '@/components/ui/button';
@@ -145,14 +145,14 @@ export default function WarehouseDetailPage() {
         return;
       }
 
-      const warehouseData = docSnap.data() as Omit<Warehouse, 'id' | 'createdAt' | 'updatedAt'> & { createdAt: Timestamp, updatedAt: Timestamp };
+      const warehouseData = docSnap.data() as Omit<Warehouse, 'id' | 'createdAt' | 'updatedAt'> & { createdAt: Timestamp | null, updatedAt: Timestamp | null };
       setWarehouse({
         id: docSnap.id,
         name: warehouseData.name,
         description: warehouseData.description,
         isArchived: warehouseData.isArchived,
-        createdAt: warehouseData.createdAt.toDate().toISOString(),
-        updatedAt: warehouseData.updatedAt.toDate().toISOString(),
+        createdAt: warehouseData.createdAt?.toDate?.()?.toISOString() || new Date().toISOString(),
+        updatedAt: warehouseData.updatedAt?.toDate?.()?.toISOString() || new Date().toISOString(),
       });
       
       const itemsQuery = query(
@@ -171,8 +171,8 @@ export default function WarehouseDetailPage() {
             ...h,
             timestamp: h.timestamp?.toDate ? h.timestamp.toDate().toISOString() : h.timestamp,
           })),
-          createdAt: itemData.createdAt?.toDate?.().toISOString() || new Date().toISOString(),
-          updatedAt: itemData.updatedAt?.toDate?.().toISOString() || new Date().toISOString(),
+          createdAt: itemData.createdAt?.toDate?.()?.toISOString() || new Date().toISOString(),
+          updatedAt: itemData.updatedAt?.toDate?.()?.toISOString() || new Date().toISOString(),
         } as Item;
       });
       setItems(warehouseItems);
@@ -710,3 +710,5 @@ export default function WarehouseDetailPage() {
 }
 
     
+
+
