@@ -23,9 +23,6 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
 
-  // Output configuration
-  output: 'export',
-  
   // Base path if your app is not served from the root
   // basePath: '/your-base-path',
   
@@ -34,7 +31,8 @@ const nextConfig: NextConfig = {
 
   // Experimental features
   experimental: {
-    serverComponentsExternalPackages: ['@opentelemetry/sdk-node', 'handlebars'],
+    // serverComponentsExternalPackages is deprecated in favor of serverExternalPackages
+    serverExternalPackages: ['@opentelemetry/sdk-node', 'handlebars'],
     // Enable server actions if needed
     // serverActions: true,
   },
